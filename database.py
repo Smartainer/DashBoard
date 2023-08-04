@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import contextlib
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./SmartPort.db"
 
@@ -19,7 +20,7 @@ naming_convention = {
 }
 Base.metadata = MetaData(naming_convention=naming_convention)
 
-
+# @contextlib.contextmanager
 def get_db():
     db = SessionLocal()
     try:

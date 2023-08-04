@@ -24,7 +24,7 @@ def get_container_list(db: Session, skip: int = 0, limit: int = 10, company: str
                     sub_query.c.username.ilike(search)  # 답변작성자
                     )
     '''
-    total = container_list.distinct().count()
+    total = 0 # container_list.distinct().count()
     container_list = container_list.order_by(Container.create_date.desc()) \
         .offset(skip).limit(limit).distinct().all()
     return total, container_list  # (전체 건수, 페이징 적용된 질문 목록)

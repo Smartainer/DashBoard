@@ -9,7 +9,7 @@ from domain.user import user_router
 app = FastAPI()
 
 origins = [
-    "http://127.0.0.1:5173",
+    "http://127.0.0.1:8000",
 ]
 
 app.add_middleware(
@@ -27,4 +27,8 @@ app.include_router(user_router.router)
 
 @app.get("/")
 def index():
-    return FileResponse("frontend/dist/index.html")
+    return {
+        "hey": "hjhjhj",
+        "mine": "jkjkjk",
+    }
+    #return FileResponse("frontend/dist/index.html")

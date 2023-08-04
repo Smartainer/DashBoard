@@ -4,16 +4,24 @@ from starlette import status
 
 from database import get_db
 from domain.container import container_schema, container_crud
-
+# 지워도 됨.
+from models import Container
 router = APIRouter(
     prefix="/api/container",
 )
+
+# 연결 잘됐는지 확인하는 함수
+@router.get("/")
+def base(db: Session = Depends(get_db)):
+    return db.query(Container).all()
     
-@router.get("/list", response_model=list[container_schema.ContainerList])
+@router.get("/list", response_model=container_schema.ContainerList)
 def container_list(db: Session = Depends(get_db),
                    page: int = 0, size: int = 10):
+    
     total, _container_list = container_crud.get_container_list(
         db, skip=page * size, limit=size)
+        
     return {
         'total': total,
         'container_list': _container_list
