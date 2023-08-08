@@ -27,8 +27,4 @@ app.include_router(user_router.router)
 
 @app.get("/")
 def index():
-    return {
-        "hey": "hjhjhj",
-        "mine": "jkjkjk",
-    }
-    #return FileResponse("frontend/dist/index.html")
+    return FileResponse("frontend/src/routes/index.js")
