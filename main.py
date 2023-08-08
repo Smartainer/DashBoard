@@ -22,9 +22,12 @@ app.add_middleware(
 
 app.include_router(container_router.router)
 app.include_router(user_router.router)
-app.mount("/build", StaticFiles(directory="frontend/build"))
+# app.mount("/assets", StaticFiles(directory="frontend/dist/assets"))
 
 
 @app.get("/")
 def index():
-    return FileResponse("frontend/src/build/index.html")
+    return {
+        "": "",
+    }
+    #return FileResponse("frontend/dist/index.html")
