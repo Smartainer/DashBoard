@@ -17,17 +17,11 @@ const Home = () => {
       size: size,
     };
 
-    fetch("api/container/list").then((response) => {
-      response.json().then((json) => {
-        setContainerList(json.container_list);
-        console.log(json.container_list);
-      });
+    fastapi("get", "/api/container/list", {}, (json) => {
+      console.log(json.container_list);
+      setContainerList(json.container_list);
+      setTotal(json.total);
     });
-    // fastapi("get", "/api/container/list", params, (json) => {
-    //   console.log(json.container_list)
-    //   setContainerList(json.container_list);
-    //   setTotal(json.total);
-    // });
   };
 
   return (

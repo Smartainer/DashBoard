@@ -1,6 +1,6 @@
 # backend
 .idea
-backend/SmartPort.db
+# backend/SmartPort.db
 backend/*.pyc
 backend/__pycache__
 backend/migrations/versions/*

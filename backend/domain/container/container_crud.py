@@ -6,7 +6,7 @@ from domain.container.container_schema import ContainerCreate, ContainerUpdate
 from models import Container
 
 
-def get_container_list(db: Session, skip: int = 0, limit: int = 10, company: str = ''):
+def get_container_list(db: Session, skip: int = 0, limit: int = 20, company: str = ''):
     container_list = db.query(Container)
     '''
     # 회사에 따라 다르게 컨테이너를 관리하는 경우

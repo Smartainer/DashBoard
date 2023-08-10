@@ -17,7 +17,7 @@ def base(db: Session = Depends(get_db)):
     
 @router.get("/list", response_model=container_schema.ContainerList)
 def container_list(db: Session = Depends(get_db),
-                   page: int = 0, size: int = 10):
+                   page: int = 0, size: int = 20):
     
     total, _container_list = container_crud.get_container_list(
         db, skip=page * size, limit=size)
