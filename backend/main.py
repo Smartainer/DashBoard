@@ -5,7 +5,6 @@ from starlette.staticfiles import StaticFiles
 
 from domain.container import container_router
 from domain.user import user_router
-
 app = FastAPI()
 
 origins = [
@@ -22,12 +21,5 @@ app.add_middleware(
 
 app.include_router(container_router.router)
 app.include_router(user_router.router)
-# app.mount("/assets", StaticFiles(directory="frontend/dist/assets"))
+app.mount("/", StaticFiles(directory="static/build", html=True), name="static")
 
-
-@app.get("/")
-def index():
-    return {
-        "": "",
-    }
-    #return FileResponse("frontend/dist/index.html")

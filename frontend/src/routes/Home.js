@@ -19,10 +19,10 @@ const Home = () => {
 
     fetch("api/container/list").then((response) => {
       response.json().then((json) => {
-        setContainerList(json.container_list)
-        console.log(json.container_list)
-      })
-    })
+        setContainerList(json.container_list);
+        console.log(json.container_list);
+      });
+    });
     // fastapi("get", "/api/container/list", params, (json) => {
     //   console.log(json.container_list)
     //   setContainerList(json.container_list);
@@ -43,24 +43,28 @@ const Home = () => {
           <th>진동</th>
           <th>항만</th>
           <th>부두</th>
-        {containerList && containerList.map((container) => (  // 맵함수를 이용해 dummy 안의 days 그룹 내의 원소를 검색한다.
-          <tr key={container.id}>
-            <td>{container.id}</td>
-            <td>{container.name}</td>
-            <td>{container.cold ? "O" : "X"}</td>
-            <td>{container.temperature}</td>
-            <td>{container.humidity}</td>
-            <td>{container.slope}</td>
-            <td>{container.vibration}</td>
-            <td>{container.port}</td>
-            <td>{container.wharf}</td>
-          </tr>
-        ))}
+          {containerList &&
+            containerList.map(
+              (
+                container // 맵함수를 이용해 dummy 안의 days 그룹 내의 원소를 검색한다.
+              ) => (
+                <tr key={container.id}>
+                  <td>{container.id}</td>
+                  <td>{container.name}</td>
+                  <td>{container.cold ? "O" : "X"}</td>
+                  <td>{container.temperature}</td>
+                  <td>{container.humidity}</td>
+                  <td>{container.slope}</td>
+                  <td>{container.vibration}</td>
+                  <td>{container.port}</td>
+                  <td>{container.wharf}</td>
+                </tr>
+              )
+            )}
         </tbody>
       </table>
     </div>
   );
-
-}
+};
 
 export default Home;
