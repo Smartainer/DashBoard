@@ -27,8 +27,7 @@ def get_container_list(db: Session, skip: int = 0, limit: int = 20, company: str
     total = 0 # container_list.distinct().count()
     container_list = container_list.order_by(Container.create_date.desc()) \
         .offset(skip).limit(limit).distinct().all()
-    return total, {0, "TEMU036249(5)", ,	34, 23,	31.8,	23,	"울산항",	"1부두",	2020/08/13 15:40,	2020/08/14 15:40
-} # container_list  # (전체 건수, 페이징 적용된 질문 목록)
+    return total, container_list  # (전체 건수, 페이징 적용된 질문 목록)
 
 
 def get_container(db: Session, container_id: int):
