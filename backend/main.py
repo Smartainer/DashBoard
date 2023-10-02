@@ -22,4 +22,3 @@ app.add_middleware(
 app.include_router(container_router.router)
 app.include_router(user_router.router)
 app.mount("/", StaticFiles(directory="static/build", html=True), name="static")
-

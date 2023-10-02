@@ -4,12 +4,11 @@ from pydantic import BaseModel, validator
 
 class UserCreate(BaseModel):
     name: str
-    username: str
     password1: str
     password2: str
     email: str
 
-    @validator('username', 'password1', 'password2', 'email')
+    @validator('name', 'password1', 'password2', 'email')
     def not_empty(cls, v):
         if not v or not v.strip():
             raise ValueError('빈 값은 허용되지 않습니다.')
@@ -31,7 +30,6 @@ class User(BaseModel):
 
     id: int       
     name: str       
-    username: str   
     password: str   
     email: str      
     created: datetime.datetime 

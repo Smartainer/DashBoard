@@ -21,7 +21,7 @@ def container_list(db: Session = Depends(get_db),
     
     total, _container_list = container_crud.get_container_list(
         db, skip=page * size, limit=size)
-        
+
     return {
         'total': total,
         'container_list': _container_list
@@ -29,13 +29,20 @@ def container_list(db: Session = Depends(get_db),
 
 @router.get("/detail/{container_id}", response_model=container_schema.Container)
 def container_detail(container_id: int, db: Session = Depends(get_db)):
-    container = container_crud.get_container(db, container_id=container_id)
+    print(container_id)
+    container = container_crud.get_container(db, container_id)
     return container
 
-@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/create")
 def container_create(_container_create: container_schema.ContainerCreate,
                     db: Session = Depends(get_db)):
-    container_crud.create_container(db=db, container_create=container_create)
+    container_crud.create_container(db=db, container_create=_container_create)
+    return "success"
+
+@router.get("/lastIndex")
+def container_lastIdx(db: Session = Depends(get_db)):
+    last_idx = container_crud.container_lastIdx(db=db)
+    return {"last_inserted_id": last_idx}
 
 @router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
 def container_update(_container_update: container_schema.ContainerUpdate,
@@ -51,3 +58,10 @@ def container_update(_container_update: container_schema.ContainerUpdate,
     '''
     container_crud.update_container(db=db, db_container=db_container,
                                   _container_update=_container_update)
+    
+@router.delete("/delete/{container_id}", status_code=status.HTTP_204_NO_CONTENT)
+def container_delete(container_id: int, db: Session = Depends(get_db)):
+    _container_delete = container_crud.get_container(db, container_id)
+    print(type(_container_delete))
+    container_crud.delete_container(db=db, db_container=_container_delete)
+    return "success"

@@ -1,51 +1,28 @@
-const fastapi = (
-  operation,
-  url,
-  params,
-  success_callback,
-  failure_callback
-) => {
-  let method = operation;
-  let content_type = "application/json";
-  let body = JSON.stringify(params);
+import axios from "axios";
 
+const fastapi = async (method, url, params) => {
   let _url = url;
-  if (method === "get") {
-    _url += "?" + new URLSearchParams(params);
+  if ((method === "get" || method == "delete") && params != null) {
+    _url += "/" + params.id;
   }
-
-  let options = {
-    method: method,
-    headers: {
-      "Content-Type": content_type,
-    },
-  };
-
-  if (method !== "get") {
-    options["body"] = body;
+  console.log("들어감");
+  let response;
+  if (method == "get") {
+    response = await axios.get(_url);
+  } else if (method == "post") {
+    response = await axios.post(_url, params);
+  } else if (method == "delete") {
+    response = await axios.delete(_url);
   }
+  console.log("나옴");
 
-  fetch(_url, options).then((response) => {
-    response
-      .json()
-      .then((json) => {
-        if (response.status >= 200 && response.status < 300) {
-          // 200 ~ 299
-          if (success_callback) {
-            success_callback(json);
-          }
-        } else {
-          if (failure_callback) {
-            failure_callback(json);
-          } else {
-            alert(JSON.stringify(json));
-          }
-        }
-      })
-      .catch((error) => {
-        alert(JSON.stringify(error));
-      });
-  });
+  let responseOK =
+    response && response.status === 200 && response.statusText === "OK";
+
+  if (responseOK) {
+    let data = await response.data;
+    return data;
+  }
 };
 
 export default fastapi;
