@@ -22,10 +22,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def hello():
-    return {"message": "Hello, FastAPI!"}
-
 app.include_router(container_router.router)
 app.include_router(user_router.router)
 app.mount("/", StaticFiles(directory="static/", html=True), name="static")
