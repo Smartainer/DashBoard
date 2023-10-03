@@ -24,6 +24,7 @@ function ShowContainerAnalysisModalBody({ extraObject, closeModal }) {
     setContainerObj({ ...containerObj, [updateType]: value });
   };
 
+  console.log("ShowContainerAnalysisModalBody");
   return (
     <>
       <Dashboard container_id={extraObject.id} />

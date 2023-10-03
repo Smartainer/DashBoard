@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkreact_app=self.webpackChunkreact_app||[]).push([[348],{4348:function(e,t,a){a.r(t);var n=a(2791),c=a(9434),r=a(5054),u=a(4797),f=a(5772),i=a(184);t.default=function(){var e=(0,c.I0)(),t=(0,f.UO)().id;return(0,n.useEffect)((function(){e((0,r.Iw)({title:"Dashboard"}))}),[]),(0,i.jsx)(u.Z,{container_id:t})}}}]);
-//# sourceMappingURL=348.ac817885.chunk.js.map

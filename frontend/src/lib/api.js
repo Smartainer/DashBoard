@@ -6,6 +6,7 @@ const fastapi = async (method, url, params) => {
     _url += "/" + params.id;
   }
   console.log("들어감");
+  console.log(_url);
   let response;
   if (method == "get") {
     response = await axios.get(_url);
