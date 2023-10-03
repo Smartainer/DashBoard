@@ -14,6 +14,10 @@ const ProfileSettings = lazy(() =>
 
 const routes = [
   {
+    path: "/", // the url
+    component: Welcome, // view rendered
+  },
+  {
     path: "/dashboard/:id", // the url
     component: Dashboard, // view rendered
   },

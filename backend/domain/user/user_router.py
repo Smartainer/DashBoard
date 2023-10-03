@@ -30,7 +30,7 @@ def user_create(_user_create: user_schema.UserCreate, db: Session = Depends(get_
     user_crud.create_user(db=db, user_create=_user_create)
 
 
-@router.post("/login", response_model=user_schema.Token)
+@router.post("/logins", response_model=user_schema.Token)
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
                            db: Session = Depends(get_db)):
 
