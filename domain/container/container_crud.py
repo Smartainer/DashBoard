@@ -9,23 +9,10 @@ from models import Vibration, Humidity_Temperature, Slope
 
 
 def get_container_list(db: Session, skip: int = 0, limit: int = 20, company: str = ''):
+    print(db.query(DB_Container))
     container_list = db.query(DB_Container)
-    '''
-    # 회사에 따라 다르게 컨테이너를 관리하는 경우
-    if company:
-        search = '%%{}%%'.format(company)
-        sub_query = db.query(Answer.container_id, Answer.content, User.username) \
-            .outerjoin(User, Answer.user_id == User.id).subquery()
-        container_list = container_list \
-            .outerjoin(User) \
-            .outerjoin(sub_query, sub_query.c.container_id == Container.id) \
-            .filter(Container.subject.ilike(search) |   # 질문제목
-                    Container.content.ilike(search) |   # 질문내용
-                    User.username.ilike(search) |       # 질문작성자
-                    sub_query.c.content.ilike(search) | # 답변내용
-                    sub_query.c.username.ilike(search)  # 답변작성자
-                    )
-    '''
+    print("container_list")
+    print(container_list)
     total = container_list.distinct().count()
     container_list = container_list.order_by(DB_Container.create_date.desc()) \
         .distinct().all()
@@ -75,24 +62,27 @@ def update_container(db: Session, db_container: Container,
     db.commit()
 
 def container_vibration(db: Session, container_id: int):
+    now = datetime.now()
     db_vibration = Vibration(cid=container_id,
                         vibration=True,
-                        create_date=datetime.now(),
+                        create_date=now,
                         )
     db.add(db_vibration)
     
     container = db.query(DB_Container).filter(DB_Container.id==container_id).first()
     container.vibration = True
+    container.modify_date = now
     db.add(container)
 
     db.commit()
 
 def container_slope(db: Session, container_id: int, slopex: float, slopey: float, slopez: float):
+    now = datetime.now()
     db_slope = Slope(cid=container_id,
                         slopex=slopex,
                         slopey=slopey,
                         slopez=slopez,
-                        create_date=datetime.now(),
+                        create_date=now,
                         )
     db.add(db_slope)
 
@@ -100,21 +90,24 @@ def container_slope(db: Session, container_id: int, slopex: float, slopey: float
     container.slopex = slopex
     container.slopey = slopey
     container.slopez = slopez
+    container.modify_date = now
     db.add(container)
 
     db.commit()
 
 def container_humidity_temperature(db: Session, container_id: int, temperature: float, humidity: int):
+    now = datetime.now()
     db_humidity_temperature = Humidity_Temperature(cid=container_id,
                         temperature=temperature,
                         humidity=humidity,
-                        create_date=datetime.now(),
+                        create_date=now,
                         )
     db.add(db_humidity_temperature)
 
     container = db.query(DB_Container).filter(DB_Container.id==container_id).first()
     container.temperature = temperature
     container.humidity = humidity
+    container.modify_date = now
     db.add(container)
 
     db.commit()

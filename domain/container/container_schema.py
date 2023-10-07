@@ -8,9 +8,11 @@ class Container(BaseModel):
     name: str
     cold: bool
     temperature: float
-    slope: float
-    humidity: float
-    vibration: float
+    slopex: float
+    slopey: float
+    slopez: float
+    humidity: int
+    vibration: bool
     port: str
     wharf: str
     create_date: datetime.datetime
@@ -24,9 +26,11 @@ class ContainerCreate(BaseModel):
     name: str
     cold: bool
     temperature: float
-    slope: float
-    humidity: float
-    vibration: float
+    slopex: float
+    slopey: float
+    slopez: float
+    humidity: int
+    vibration: bool
     port: str
     wharf: str
 

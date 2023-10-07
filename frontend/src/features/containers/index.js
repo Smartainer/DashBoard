@@ -96,9 +96,11 @@ function Containers() {
                 <th style={{ position: "relative" }}>이름</th>
                 <th>냉장 여부</th>
                 <th>온도</th>
-                <th>기울기</th>
+                <th>X축 기울기</th>
+                <th>Y축 기울기</th>
+                <th>Z축 기울기</th>
                 <th>습도</th>
-                <th>진동</th>
+                <th>진동 여부</th>
                 <th>항만</th>
                 <th>부두</th>
                 <th>생성 날짜</th>
@@ -124,13 +126,19 @@ function Containers() {
                         {container.temperature.toFixed(2)}
                       </td>
                       <td onClick={() => showDetail(container)}>
-                        {container.humidity.toFixed(2)}
+                        {container.slopex.toFixed(2)}
                       </td>
                       <td onClick={() => showDetail(container)}>
-                        {container.slope.toFixed(2)}
+                        {container.slopey.toFixed(2)}
                       </td>
                       <td onClick={() => showDetail(container)}>
-                        {container.vibration.toFixed(2)}
+                        {container.slopez.toFixed(2)}
+                      </td>
+                      <td onClick={() => showDetail(container)}>
+                        {container.humidity + "%"}
+                      </td>
+                      <td onClick={() => showDetail(container)}>
+                        {container.vibration ? "O" : "X"}
                       </td>
                       <td onClick={() => showDetail(container)}>
                         {container.port}
