@@ -1,23 +1,16 @@
-import React, { lazy, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { themeChange } from "theme-change";
 import CheckAuth from "./app/auth";
 import initializeApp from "./app/init";
-
-// Importing pages
-const Layout = lazy(() => import("./containers/Layout"));
-const Login = lazy(() => import("./pages/Login"));
-const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
-const Register = lazy(() => import("./pages/Register"));
-const Dashboard = lazy(() => import("./pages/protected/Dashboard"));
-const Welcome = lazy(() => import("./pages/protected/Welcome"));
-const Containers = lazy(() => import("./pages/protected/Containers"));
+import Layout from "./containers/Layout";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import Register from "./pages/Register";
+import Dashboard from "./pages/protected/Dashboard";
+import Welcome from "./pages/protected/Welcome";
+import Containers from "./pages/protected/Containers";
 
 // Initializing different libraries
 initializeApp();
@@ -30,36 +23,36 @@ function App() {
     // 👆 daisy UI themes initialization
     themeChange(false);
   }, []);
+  console.log("token: ");
+  console.log(token);
 
   return (
     <>
       <Router>
+        {token && <Layout />}
         <Routes>
           {token ? (
             <>
-              <Route path="/app/dashboard/:id" element={<Dashboard />} />
-              <Route path="/app/welcome" element={<Welcome />} />
-              <Route path="/app/containers" element={<Containers />} />
-              <Route path="/app/*" element={<Layout />} />
-
-              <Route path="*" element={<Welcome replace to="/app/welcome" />} />
+              <Route exact path="/app/dashboard/:id" element={<Dashboard />} />
+              <Route exact path="/app/welcome" element={<Welcome />} />
+              <Route exact path="/app/containers" element={<Containers />} />
+              <Route
+                exact
+                path="*"
+                element={<Welcome replace to="/app/welcome" />}
+              />
             </>
           ) : (
             <>
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="app/dashboard/:id" element={<Dashboard />} />
-
-              {/* Place new routes over this */}
-              <Route path="/app/*" element={<Layout />} />
-
+              <Route exact path="/login" element={<Login />} />
               <Route
-                path="*"
-                element={
-                  <Navigate to={token ? "/app/welcome" : "/login"} replace />
-                }
+                exact
+                path="/forgot-password"
+                element={<ForgotPassword />}
               />
+              <Route exact path="/register" element={<Register />} />
+              <Route exact path="/app/dashboard/:id" element={<Dashboard />} />
+              <Route exact path="*" element={<Login replace to="/login" />} />
             </>
           )}
         </Routes>

@@ -4,7 +4,6 @@ import InputText from "../../../components/Input/InputText";
 import ErrorText from "../../../components/Typography/ErrorText";
 import { showNotification } from "../../common/headerSlice";
 import { addNewContainer } from "../containerSlice";
-import fastapi from "../../../lib/api";
 
 const INITIAL_CONTAINER_OBJ = {
   // id: 0,
@@ -22,7 +21,6 @@ const INITIAL_CONTAINER_OBJ = {
 
 function AddContainerModalBody({ closeModal }) {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [containerObj, setContainerObj] = useState(INITIAL_CONTAINER_OBJ);
 

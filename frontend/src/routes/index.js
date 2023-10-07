@@ -6,7 +6,6 @@ const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Welcome = lazy(() => import("../pages/protected/Welcome"));
 const Page404 = lazy(() => import("../pages/protected/404"));
 const Blank = lazy(() => import("../pages/protected/Blank"));
-const Charts = lazy(() => import("../pages/protected/Charts"));
 const Containers = lazy(() => import("../pages/protected/Containers"));
 const ProfileSettings = lazy(() =>
   import("../pages/protected/ProfileSettings")
@@ -32,10 +31,6 @@ const routes = [
   {
     path: "/settings-profile",
     component: ProfileSettings,
-  },
-  {
-    path: "/charts",
-    component: Charts,
   },
   {
     path: "/404",

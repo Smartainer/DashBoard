@@ -6,12 +6,9 @@ import {
   CONFIRMATION_MODAL_CLOSE_TYPES,
   MODAL_BODY_TYPES,
 } from "../../utils/globalConstantUtil";
-import { deleteContainer, getContainerContent } from "./containerSlice";
+import { getContainerContent } from "./containerSlice";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
-import { showNotification } from "../common/headerSlice";
-import React, { useState, useEffect } from "react";
-import fastapi from "../../lib/api";
-import { current } from "@reduxjs/toolkit";
+import React, { useEffect } from "react";
 
 const TopSideButtons = () => {
   const dispatch = useDispatch();
@@ -44,17 +41,6 @@ function Containers() {
   useEffect(() => {
     dispatch(getContainerContent());
   }, []);
-
-  const getDummyStatus = (index) => {
-    if (index % 5 === 0) return <div className="badge">Not Interested</div>;
-    else if (index % 5 === 1)
-      return <div className="badge badge-primary">In Progress</div>;
-    else if (index % 5 === 2)
-      return <div className="badge badge-secondary">Sold</div>;
-    else if (index % 5 === 3)
-      return <div className="badge badge-accent">Need Followup</div>;
-    else return <div className="badge badge-ghost">Open</div>;
-  };
 
   const deleteCurrentContainer = (_id, index) => {
     dispatch(

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const CheckAuth = () => {
   /*  Getting token value stored in localstorage, if token is not present we will open login page 

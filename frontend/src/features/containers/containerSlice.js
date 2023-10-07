@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import fastapi from "../../lib/api";
 
 export const getContainerContent = createAsyncThunk(

@@ -5,7 +5,6 @@ from models import User
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-
 def create_user(db: Session, user_create: UserCreate):
     db_user = User(name=user_create.name,
                     username=user_create.username,

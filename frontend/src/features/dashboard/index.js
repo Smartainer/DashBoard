@@ -1,18 +1,13 @@
 import DashboardStats from "./components/DashboardStats";
-import AmountStats from "./components/AmountStats";
-import PageStats from "./components/PageStats";
 
 import FireIcon from "@heroicons/react/24/outline/FireIcon";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import EyeDropperIcon from "@heroicons/react/24/outline/EyeDropperIcon";
 import ArrowTrendingDownIcon from "@heroicons/react/24/outline/ArrowTrendingDownIcon";
-import UserChannels from "./components/UserChannels";
 import LineChart from "./components/LineChart";
-import BarChart from "./components/BarChart";
 import DashboardTopBar from "./components/DashboardTopBar";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../common/headerSlice";
-import DoughnutChart from "./components/DoughnutChart";
 import fastapi from "../../lib/api";
 import { useEffect, useState } from "react";
 
@@ -23,9 +18,11 @@ function Dashboard({ container_id }) {
     name: "Virtual Container",
     cold: false,
     temperature: 26.4,
-    humidity: 20.0,
-    slope: 17.3,
-    vibration: 31.5,
+    humidity: 20,
+    slopex: 17.3,
+    slopey: 17.3,
+    slopez: 17.3,
+    vibration: 1,
     port: "Port",
     wharf: "Wharf",
     create_date: "2021-04-15T15:40:15.087337",
@@ -36,8 +33,6 @@ function Dashboard({ container_id }) {
   useEffect(() => {
     fastapi("get", "/api/container/detail/" + container_id).then((data) => {
       setContainer(data);
-      console.log("container");
-      console.log(container);
     });
   }, []);
 
@@ -50,19 +45,25 @@ function Dashboard({ container_id }) {
     },
     {
       title: "Slope",
-      value: container.slope.toFixed(2),
+      value:
+        "x: " +
+        container.slopex.toFixed(2) +
+        ", y: " +
+        container.slopey.toFixed(2) +
+        ", z: " +
+        container.slopez.toFixed(2),
       icon: <ArrowTrendingDownIcon className="w-8 h-8" />,
       description: "Current month",
     },
     {
       title: "Humidity",
-      value: container.humidity.toFixed(2),
+      value: container.humidity + "%",
       icon: <EyeDropperIcon className="w-8 h-8" />,
       description: "50 in hot containers",
     },
     {
       title: "Vibration",
-      value: container.vibration.toFixed(2),
+      value: container.vibration ? "O" : "X",
       icon: <BellAlertIcon className="w-8 h-8" />,
       description: "↙ 300 (18%)",
     },
