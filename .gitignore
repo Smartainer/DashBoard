@@ -4,6 +4,8 @@
 backend/*.pyc
 backend/__pycache__
 backend/migrations/versions/*
+backend/domain/user/__pycache__
+backend/domain/container/__pycache__
 
 # frontend
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
