@@ -36,6 +36,8 @@ function Dashboard({ container_id }) {
   useEffect(() => {
     fastapi("get", "/api/container/detail/" + container_id).then((data) => {
       setContainer(data);
+      console.log("container");
+      console.log(container);
     });
   }, []);
 

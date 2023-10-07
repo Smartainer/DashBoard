@@ -5,6 +5,7 @@ from sqlalchemy import text
 
 from domain.container.container_schema import ContainerCreate, ContainerUpdate, Container
 from models import Container as DB_Container
+from models import Vibration, Humidity_Temperature, Slope
 
 
 def get_container_list(db: Session, skip: int = 0, limit: int = 20, company: str = ''):
@@ -73,8 +74,52 @@ def update_container(db: Session, db_container: Container,
     db.add(db_container)
     db.commit()
 
+def container_vibration(db: Session, container_id: int):
+    db_vibration = Vibration(cid=container_id,
+                        vibration=True,
+                        create_date=datetime.now(),
+                        )
+    db.add(db_vibration)
+    
+    container = db.query(DB_Container).filter(DB_Container.id==container_id).first()
+    container.vibration = True
+    db.add(container)
+
+    db.commit()
+
+def container_slope(db: Session, container_id: int, slopex: float, slopey: float, slopez: float):
+    db_slope = Slope(cid=container_id,
+                        slopex=slopex,
+                        slopey=slopey,
+                        slopez=slopez,
+                        create_date=datetime.now(),
+                        )
+    db.add(db_slope)
+
+    container = db.query(DB_Container).filter(DB_Container.id==container_id).first()
+    container.slopex = slopex
+    container.slopey = slopey
+    container.slopez = slopez
+    db.add(container)
+
+    db.commit()
+
+def container_humidity_temperature(db: Session, container_id: int, temperature: float, humidity: int):
+    db_humidity_temperature = Humidity_Temperature(cid=container_id,
+                        temperature=temperature,
+                        humidity=humidity,
+                        create_date=datetime.now(),
+                        )
+    db.add(db_humidity_temperature)
+
+    container = db.query(DB_Container).filter(DB_Container.id==container_id).first()
+    container.temperature = temperature
+    container.humidity = humidity
+    db.add(container)
+
+    db.commit()
 
 def delete_container(db: Session, db_container: DB_Container):
-    delete_container  = db.query(DB_Container).filter_by(id=db_container.id).first()
+    delete_container = db.query(DB_Container).filter_by(id=db_container.id).first()
     db.delete(delete_container)
     db.commit()

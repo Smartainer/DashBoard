@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import LandingIntro from "./LandingIntro";
 import ErrorText from "../../components/Typography/ErrorText";
 import InputText from "../../components/Input/InputText";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
   const INITIAL_REGISTER_OBJ = {
     name: "",
     password: "",
@@ -30,7 +32,8 @@ function Register() {
       // Call API to check user credentials and save token in localstorage
       localStorage.setItem("token", "DumyTokenHere");
       setLoading(false);
-      window.location.href = "/app/welcome";
+      navigate("/app/welcome");
+      // window.location.href = "/app/welcome";
     }
   };
 

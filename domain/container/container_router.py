@@ -43,20 +43,20 @@ def container_lastIdx(db: Session = Depends(get_db)):
     last_idx = container_crud.container_lastIdx(db=db)
     return {"last_inserted_id": last_idx}
 
-@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
-def container_update(_container_update: container_schema.ContainerUpdate,
-                    db: Session = Depends(get_db)):
-    db_container = container_crud.get_container(db, container_id=_container_update.container_id)
-    if not db_container:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail="데이터를 찾을수 없습니다.")
-    '''
-    if current_user.id != db_container.user.id:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail="수정 권한이 없습니다.")
-    '''
-    container_crud.update_container(db=db, db_container=db_container,
-                                  _container_update=_container_update)
+@router.get("/iot1")
+def container_vibration(cid: int, db: Session = Depends(get_db)):
+    container_crud.container_vibration(db, cid)
+    return "success"
+
+@router.get("/iot2")
+def container_vibration(cid: int, temp: float, hum: int, db: Session = Depends(get_db)):
+    container_crud.container_humidity_temperature(db, cid, temp, hum)
+    return "success"
+
+@router.get("/iot3")
+def container_slope(cid: int, x: float, y: float, z: float, db: Session = Depends(get_db)):
+    container_crud.container_slope(db, cid, x, y, z)
+    return "success"
     
 @router.delete("/delete/{container_id}", status_code=status.HTTP_204_NO_CONTENT)
 def container_delete(container_id: int, db: Session = Depends(get_db)):
