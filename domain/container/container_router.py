@@ -43,8 +43,8 @@ def container_lastIdx(db: Session = Depends(get_db)):
     return {"last_inserted_id": last_idx}
 
 @router.get("/iot1")
-def container_vibration(cid: int, db: Session = Depends(get_db)):
-    container_crud.container_vibration(db, cid)
+def container_vibration(cid: int, v: int, db: Session = Depends(get_db)):
+    container_crud.container_vibration(db, v, cid)
     return "success"
 
 @router.get("/iot2")

@@ -61,16 +61,16 @@ def update_container(db: Session, db_container: Container,
     db.add(db_container)
     db.commit()
 
-def container_vibration(db: Session, container_id: int):
+def container_vibration(db: Session, vibration: int, container_id: int):
     now = datetime.now()
     db_vibration = Vibration(cid=container_id,
-                        vibration=True,
+                        vibration=vibration,
                         create_date=now,
                         )
     db.add(db_vibration)
     
     container = db.query(DB_Container).filter(DB_Container.id==container_id).first()
-    container.vibration = True
+    container.vibration = vibration
     container.modify_date = now
     db.add(container)
 
