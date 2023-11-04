@@ -81,38 +81,20 @@ function Dashboard({ container_id }) {
 
   return (
     <>
-      {/** ---------------------- Select Period Content ------------------------- */}
       <DashboardTopBar updateDashboardPeriod={updateDashboardPeriod} />
 
-      {/** ---------------------- Different stats content 1 ------------------------- */}
       <div className="grid lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
         {statsData.map((d, k) => {
           return <DashboardStats key={k} {...d} colorIndex={k} />;
         })}
       </div>
 
-      {/** ---------------------- Different charts ------------------------- */}
       <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
         <LineChart title="Temperature" lastNum={container.temperature} />
         <LineChart title="Slope" lastNum={container.slope} />
         <LineChart title="Humidity" lastNum={container.humidity} />
         <LineChart title="Vibration" lastNum={container.vibration} />
-        {/* <BarChart /> */}
       </div>
-
-      {/** ---------------------- Different stats content 2 ------------------------- */}
-
-      {/* <div className="grid lg:grid-cols-2 mt-10 grid-cols-1 gap-6">
-        <AmountStats />
-        <PageStats />
-      </div> */}
-
-      {/** ---------------------- User source channels table  ------------------------- */}
-
-      {/* <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
-        <UserChannels />
-        <DoughnutChart />
-      </div> */}
     </>
   );
 }

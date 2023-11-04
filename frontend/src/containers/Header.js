@@ -30,6 +30,7 @@ function Header() {
 
   function logoutUser() {
     localStorage.clear();
+    //window.location.href = "/login";
     navigate("/login");
   }
 

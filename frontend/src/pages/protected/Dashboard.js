@@ -12,7 +12,7 @@ function InternalPage() {
     dispatch(setPageTitle({ title: "Dashboard" }));
   }, []);
 
-  return <Dashboard container_id={id} />;
+  return <Dashboard _id={id} />;
 }
 
 export default InternalPage;
